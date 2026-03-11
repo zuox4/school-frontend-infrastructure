@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://st.max.ru/js/max-web-app.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.js"></script>
+
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="color-scheme" content="dark light" />
+
+    <title>host</title>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Этот блок исчезнет, как только загрузится React -->
+      <div
+        id="lottie-loader"
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          width: 100vw;
+          background: #1d2327;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 9999;
+        "
+      >
+        <dotlottie-player
+          src="/Loading.json"
+          background="transparent"
+          speed="1"
+          style="width: 200px; height: 200px"
+          loop
+          autoplay
+        >
+        </dotlottie-player>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
