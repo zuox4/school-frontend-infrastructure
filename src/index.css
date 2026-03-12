@@ -14,12 +14,18 @@ body {
   width: 100%;
   height: 100%;
 }
+.MaxUI_colorScheme_dark__jFq {
+        --background-surface-primary: #043951; /* старое значение */
+        --background-surface-card: #ffffff1a;
 
+}
 body {
+  
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background-color: black;
+  background-color: #043951;
   -moz-osx-font-smoothing: grayscale;
+
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
     Cantarell, sans-serif;
