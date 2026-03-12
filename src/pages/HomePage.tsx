@@ -37,15 +37,15 @@ export function HomePage() {
               </Avatar.Text>
             </Avatar.Container>
             <Typography.Headline
-              style={{ fontWeight: "300", fontSize: "20px" }}
+              style={{ fontWeight: "300", fontSize: "22px" }}
             >
               Личный кабинет
             </Typography.Headline>
-            <Typography.Title style={{ fontWeight: "700" }}>
+            <Typography.Title style={{ fontWeight: "700", fontSize: "20px" }}>
               {user.fullName}
             </Typography.Title>
+            <RolesList roles={user.roles} />
           </Flex>
-          <RolesList roles={user.roles} />
         </Container>
 
         <ServicesList roles={user.roles} />

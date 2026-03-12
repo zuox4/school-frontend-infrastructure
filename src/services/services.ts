@@ -21,4 +21,13 @@ export const servicesConfig: Service[] = [
     component: lazy(() => import("./markbook-service/MarkBookServiceApp")),
     description: "Зачетная книжка учащегося профильно класса",
   },
+    {
+    id: "contacts",
+    name: "Контакты",
+    icon: "📞",
+    path: "/contacts",
+    allowedRoles: ["staff", "student", "parent"],
+    component: lazy(() => import("./contacts-service/ContactsServiceApp")),
+    description: "Поиск контактов сотрудника",
+  },
 ];

@@ -1,11 +1,11 @@
 import type { ComponentType, LazyExoticComponent } from "react";
+import type { LucideIcon } from 'lucide-react';
 
 export type UserRole = "student" | "staff" | "parent" | "admin";
-
 export interface Service {
   id: string;
   name: string;
-  icon?: string;
+  icon?: string | LucideIcon
   path: string;
   allowedRoles: UserRole[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
