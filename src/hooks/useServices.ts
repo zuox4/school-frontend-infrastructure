@@ -2,12 +2,12 @@ import { useMemo } from "react";
 import { servicesConfig } from "../services/services";
 import type { UserRole, Service } from "../types/services";
 
-export function useServices(userRoles: UserRole[]) {
+export function useServices(userRole: UserRole) {
   const availableServices = useMemo((): Service[] => {
     return servicesConfig.filter((service) =>
-      service.allowedRoles.some((role) => userRoles.includes(role)),
+      service.allowedRoles.includes(userRole),
     );
-  }, [userRoles]);
+  }, [userRole]);
 
   const getServiceByPath = useMemo(
     () => (path: string) => servicesConfig.find((s) => s.path === path),
@@ -17,11 +17,9 @@ export function useServices(userRoles: UserRole[]) {
   const checkAccess = useMemo(
     () => (serviceId: string) => {
       const service = servicesConfig.find((s) => s.id === serviceId);
-      return (
-        service?.allowedRoles.some((role) => userRoles.includes(role)) ?? false
-      );
+      return service?.allowedRoles.includes(userRole) ?? false;
     },
-    [userRoles],
+    [userRole],
   );
 
   return {

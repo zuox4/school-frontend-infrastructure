@@ -21,13 +21,12 @@ export default defineConfig({
     }),
   ],
   server: {
-    // host: "0.0.0.0",
     port: 5000,
     // strictPort: true,
 
     allowedHosts: [
-      "gloomily-ideal-coelacanth.cloudpub.ru",
-      // "localhost",
+      "drowsily-famous-screamer.cloudpub.ru",
+      "localhost",
       ".cloudpub.ru", // Разрешает все поддомены cloudpub.ru
     ],
     hmr: {

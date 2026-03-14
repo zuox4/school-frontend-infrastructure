@@ -54,7 +54,7 @@ declare global {
   }
 }
 
-const API_URL = "https://regionally-meet-staghound.cloudpub.ru";
+const API_URL = "https://drowsily-famous-screamer.cloudpub.ru";
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -90,10 +90,10 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     const isAuthRequest =
-      originalRequest.url?.includes("/users/profile/me") ||
-      originalRequest.url?.includes("/users/auth/login") ||
-      originalRequest.url?.includes("/users/auth/refresh") ||
-      originalRequest.url?.includes("/users/auth/telegram-login");
+      originalRequest.url?.includes("/auth/me") ||
+      originalRequest.url?.includes("/auth/login") ||
+      originalRequest.url?.includes("/auth/refresh") ||
+      originalRequest.url?.includes("/auth/max-login");
 
     if (
       error.response?.status === 401 &&
@@ -105,8 +105,8 @@ api.interceptors.response.use(
         const refreshToken = localStorage.getItem("refresh_token");
         if (!refreshToken) throw new Error("No refresh token");
 
-        const response = await axios.post(`${API_URL}/users/auth/refresh`, {
-          refreshToken,
+        const response = await axios.post(`${API_URL}/auth/refresh`, {
+          refresh_token: refreshToken,
         });
         const { access_token } = response.data;
 

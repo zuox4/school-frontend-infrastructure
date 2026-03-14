@@ -48,7 +48,7 @@ export function HomePage() {
           </Flex>
         </Container>
 
-        <ServicesList roles={user.roles} />
+        <ServicesList role={user.role} />
 
         {/* <Button onClick={() => logout()}>Выйти</Button> */}
       </Flex>

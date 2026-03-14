@@ -12,7 +12,7 @@ import { useServices } from "../hooks/useServices";
 export const AppRoutes = memo(function AppRoutes() {
   const { user, loading } = useAuth();
 
-  const { availableServices } = useServices(user?.roles || []);
+  const { availableServices } = useServices(user?.role || "admin");
   const { routes } = useRouteConfig(availableServices);
 
   const routeElements = useMemo(

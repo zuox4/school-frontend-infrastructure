@@ -12,12 +12,12 @@ import type { UserRole } from "../types/services";
 import { useServices } from "../hooks/useServices";
 
 interface ServicesListProps {
-  roles: UserRole[]; // Компонент принимает роли и сам фильтрует сервисы
+  role: UserRole; // Компонент принимает роли и сам фильтрует сервисы
 }
 
-export function ServicesList({ roles }: ServicesListProps) {
+export function ServicesList({ role }: ServicesListProps) {
   const navigate = useNavigate();
-  const { availableServices } = useServices(roles);
+  const { availableServices } = useServices(role);
   const roleDict: Record<UserRole, string> = {
     staff: "сотрудников",
     parent: "родителей",
@@ -34,31 +34,27 @@ export function ServicesList({ roles }: ServicesListProps) {
 
   return (
     <Flex direction="column" gap={20} style={{ width: "100%" }}>
-      {roles.map((role) => (
-        <CellList
-          key={role}
-          filled
-          header={<CellHeader>Для {roleDict[role]}</CellHeader>}
-          mode="island"
-          style={{ padding: 0 }}
-        >
-          {availableServices
-            .filter((service) => service.allowedRoles.includes(role))
-            .map((service) => (
-              <CellSimple
-                before={service.icon}
-                showChevron
-                key={service.id}
-                onClick={() =>
-                  navigate(service.path, { state: { role: role } })
-                }
-                style={{ color: "white", fontWeight: "400" }}
-              >
-                {service.name}
-              </CellSimple>
-            ))}
-        </CellList>
-      ))}
+      <CellList
+        key={role}
+        filled
+        header={<CellHeader>Для {roleDict[role]}</CellHeader>}
+        mode="island"
+        style={{ padding: 0 }}
+      >
+        {availableServices
+          .filter((service) => service.allowedRoles.includes(role))
+          .map((service) => (
+            <CellSimple
+              before=<>{service.icon}</>
+              showChevron
+              key={service.id}
+              onClick={() => navigate(service.path, { state: { role: role } })}
+              style={{ color: "white", fontWeight: "400" }}
+            >
+              {service.name}
+            </CellSimple>
+          ))}
+      </CellList>
       <OwnServices />
     </Flex>
   );

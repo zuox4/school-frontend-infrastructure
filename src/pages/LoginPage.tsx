@@ -30,7 +30,7 @@ export const LoginPage = () => {
       setError("");
 
       try {
-        const response = await api.post("/users/auth/telegram-login", {
+        const response = await api.post("/auth/max-login", {
           initData,
         });
         const { access_token, refreshToken } = response.data;

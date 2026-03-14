@@ -69,11 +69,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (credentials: LoginCredentials) => {
-    const response = await api.post<AuthResponse>(
-      "/users/auth/login",
-      credentials,
-      { headers: { "Content-Type": "multipart/form-data" } },
-    );
+    const response = await api.post<AuthResponse>("/auth/login", credentials, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     const { access_token, refresh_token: refresh_token } = response.data;
 
     localStorage.setItem("access_token", access_token);
