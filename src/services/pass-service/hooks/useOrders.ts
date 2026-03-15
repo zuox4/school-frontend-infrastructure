@@ -6,7 +6,7 @@ import type { UserRole } from "../../../types/services";
 export const useOrders = (type: UserRole) => {
   return useQuery({
     queryKey: [`${type}-order-list`],
-    queryFn: () => passesService.getOrders(type),
+    queryFn: () => passesService.getOrders(),
   });
 };
 

@@ -6,8 +6,8 @@ export type OrderStatus =
 
 export type OrderWithExtendStatus = {
   id: number;
-  childName: string;
-  dateTimeOut: string;
+  student_fullname: string;
+  date_time_out: string;
   reason: string;
   status: OrderStatus;
 };

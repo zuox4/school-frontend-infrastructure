@@ -26,6 +26,7 @@ const ACTION_BUTTONS: Partial<
     "На согласовании": { text: "Подтвердить", action: "approve" },
 
     Отклонено: { text: "Подтвердить", action: "approve" },
+    Согласовано: { text: "Отменить", action: "cancel" },
   },
 };
 
@@ -75,7 +76,7 @@ export default function OrderInfo({
   }, [roleType, order.status]);
   const approveMutation = useApproveOrder();
   const cancelMutation = useCancelOrder();
-  console.log(order.dateTimeOut);
+  console.log(order.date_time_out);
   const handleAction = async () => {
     if (!actionConfig) return;
 
@@ -123,13 +124,13 @@ export default function OrderInfo({
 
       <Flex justify="space-between" align="center" gap={10}>
         <Typography.Title style={{ fontSize: "18px" }}>
-          {order.childName}
+          {order.student_fullname}
         </Typography.Title>
         <StatusBadge status={order.status} />
       </Flex>
 
       <Flex direction="column" gap={12}>
-        <InfoRow label="Дата" value={order.dateTimeOut} />
+        <InfoRow label="Дата" value={order.date_time_out} />
         <InfoRow label="Причина" value={order.reason} />
       </Flex>
 

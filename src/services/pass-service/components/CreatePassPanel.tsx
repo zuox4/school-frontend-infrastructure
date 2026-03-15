@@ -40,26 +40,29 @@ export default function CreatePassPanel({ role }: { role: UserRole }) {
 
   const { data: children = [], isLoading } = useQuery({
     queryKey: childrenQueryKeys.my(role),
-    queryFn: () => childrenService.getMyChildren("staff"),
+    queryFn: () => childrenService.getStudents(),
   });
 
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Фильтрация детей по поисковому запросу
   const filteredChildren = useMemo(() => {
-    if (!searchQuery.trim()) return children;
+    if (!searchQuery.trim())
+      return children.sort((a, b) => a.fullname.localeCompare(b.fullname));
 
     const query = searchQuery.toLowerCase().trim();
     return children.filter((child) => {
-      const fullName = child.name.toLowerCase();
-      const className = child.class?.toLowerCase() || "";
+      const fullName = child.fullname.toLowerCase();
+      const className = child.class_unit_name?.toLowerCase() || "";
       return fullName.includes(query) || className.includes(query);
     });
   }, [children, searchQuery]);
 
   const handleClick = (child: Child) => {
-    if (dataPasses.some((c) => c.id === child.id)) {
-      setDataPasses(dataPasses.filter((c) => c.id !== child.id));
+    if (dataPasses.some((c) => c.external_id === child.external_id)) {
+      setDataPasses(
+        dataPasses.filter((c) => c.external_id !== child.external_id),
+      );
     } else {
       setDataPasses([...dataPasses, child]);
     }
@@ -180,24 +183,34 @@ export default function CreatePassPanel({ role }: { role: UserRole }) {
             )}
 
             {/* Результаты поиска */}
-            <Flex direction="column" align="center">
+            <Flex
+              direction="column"
+              align="center"
+              style={{ maxHeight: "280px", overflowY: "scroll" }}
+            >
               {filteredChildren.length > 0 ? (
                 filteredChildren.map((child) => (
                   <CellSimple
-                    key={child.id}
+                    key={child.external_id}
                     before={
                       <Avatar.Container>
                         <Avatar.Text>
-                          {child.name.split(" ")[1]?.[0] ||
-                            child.name.split(" ")[0]?.[0] ||
+                          {child.fullname.split(" ")[1]?.[0] ||
+                            child.fullname.split(" ")[0]?.[0] ||
                             "?"}
                         </Avatar.Text>
                       </Avatar.Container>
                     }
-                    title={child.name}
-                    subtitle={child.class}
+                    title={
+                      child.fullname.split(" ")[0] +
+                      " " +
+                      child.fullname.split(" ")[1]
+                    }
+                    subtitle={child.class_unit_name}
                     after={
-                      dataPasses.some((c) => c.id === child.id) && (
+                      dataPasses.some(
+                        (c) => c.external_id === child.external_id,
+                      ) && (
                         <Button
                           style={{
                             minWidth: "32px",

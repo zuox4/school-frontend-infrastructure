@@ -1,20 +1,20 @@
 // api/passesApi.ts
 
 import { api } from "../../../api/axios";
-import type { UserRole } from "../../../types/services";
+
 import type { DataForApi } from "../components/PassForm";
 
 // Типы для заявок
 export interface Order {
   id: number;
-  childName: string;
-  dateTimeOut: string;
+  student_fullname: string;
+  date_time_out: string;
   reason: string;
   status: "На согласовании" | "Согласовано" | "Отменено";
-  userId: string;
-  createdAt?: string;
-  updatedAt?: string;
-  approvedBy?: string;
+  student_id: string;
+  created_at?: string;
+  updated_at?: string;
+  approved_by?: string;
   comment?: string;
 }
 
@@ -34,8 +34,8 @@ export interface OrderStats {
 
 // API методы
 export const passesService = {
-  getOrders: async (type: UserRole): Promise<Order[]> => {
-    const response = await api.get(`/passes/orders/${type}`);
+  getOrders: async (): Promise<Order[]> => {
+    const response = await api.get(`/class-leader/pass-tickets`);
     return response.data;
   },
 
@@ -47,7 +47,7 @@ export const passesService = {
 
   // Создать заявку
   createOrder: async (data: DataForApi): Promise<Order> => {
-    const response = await api.post("/passes/orders", data);
+    const response = await api.post("/pass-ticket/create", data);
     return response.data;
   },
 
@@ -63,18 +63,15 @@ export const passesService = {
   cancelOrder: async (
     id: number,
   ): Promise<{ message: string; order: Order }> => {
-    const response = await api.post(`/passes/orders/${id}/cancel`);
+    const response = await api.put(`/pass-ticket/${id}/cancel`);
     return response.data;
   },
 };
 
 export interface Child {
-  id: number;
-  name: string;
-  class: string;
-  parentId?: string;
-  classTeacher?: string; // ID классного руководителя
-  birthDate?: string;
+  external_id: string;
+  fullname: string;
+  class_unit_name: string;
   photo?: string;
 }
 
@@ -98,47 +95,8 @@ export interface TeacherChildrenResponse {
 
 // API методы для работы с детьми
 export const childrenService = {
-  /**
-   * Получить детей текущего пользователя
-   * Для родителя - своих детей
-   * Для учителя - детей из его классов
-   * Для администратора - всех детей
-   */
-  getMyChildren: async (role: UserRole): Promise<Child[]> => {
-    const response = await api.get(`/passes/children/${role}`);
-    return response.data;
-  },
-
-  /**
-   * Получить конкретного ребенка по ID
-   */
-  // getChild: async (id: number): Promise<Child> => {
-  //   const response = await api.get(`/passes/children/${id}`);
-  //   return response.data;
-  // },
-
-  /**
-   * Получить детей для создания заявки (только для родителя)
-   * Возвращает только детей текущего родителя
-   */
-  // getChildrenForOrder: async (): Promise<Child[]> => {
-  //   const response = await api.get("/passes/children/for-order");
-  //   return response.data;
-  // },
-
-  /**
-  //  * Получить информацию о классе
-  //  */
-  // getClassInfo: async (className: string): Promise<ClassInfo> => {
-  //   const response = await api.get(`/passes/classes/${className}`);
-  //   return response.data;
-  // },
-
-  /**
-   * Получить детей в классе (для учителя)
-   */
-  getChildrenByClass: async (className: string): Promise<Child[]> => {
-    const response = await api.get(`/passes/classes/${className}/children`);
+  getStudents: async (): Promise<Child[]> => {
+    const response = await api.get(`/class-leader/students`);
     return response.data;
   },
 };

@@ -35,7 +35,7 @@ export default function OrderPassCart({
         title={
           <Flex align="center" justify="space-between">
             <Typography.Title style={{ fontSize: "16px", margin: 0 }}>
-              {order.childName}
+              {order.student_fullname}
             </Typography.Title>
             <StatusIcon status={order.status} />
           </Flex>
@@ -43,7 +43,7 @@ export default function OrderPassCart({
         subtitle={
           <Flex direction="column" gap={4}>
             <Typography.Label style={{ color: "#666", fontSize: "13px" }}>
-              {order.dateTimeOut}
+              {order.date_time_out}
             </Typography.Label>
             <Typography.Label style={{ color: "#6e6e6e", fontSize: "14px" }}>
               {order.reason}

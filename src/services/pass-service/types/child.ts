@@ -1,7 +1,7 @@
 export interface Child {
-  id: number;
-  name: string;
+  external_id: string;
+  fullname: string;
   age?: number;
-  class: string;
+  class_unit_name?: string;
   photo?: string;
 }

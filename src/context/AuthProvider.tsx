@@ -23,10 +23,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await api.post("/auth/refresh", {
         refreshToken: storedRefreshToken,
       });
-      const { access_token, user: userData } = response.data;
+      const { access_token } = response.data;
 
       localStorage.setItem("access_token", access_token);
-      setUser(userData);
+      const decoded = jwtDecode<DecodedToken>(access_token);
+      const user: User = {
+        id: decoded.sub,
+        email: decoded.email,
+        roles: decoded.roles,
+        role: decoded.role,
+        fullName: decoded.fullname,
+      };
+
+      setUser(user);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       logout();
