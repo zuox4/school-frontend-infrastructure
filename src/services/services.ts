@@ -7,7 +7,7 @@ export const servicesConfig: Service[] = [
     name: "Система пропусков",
     icon: "🎫",
     path: "/pass-out",
-    allowedRoles: ["student", "staff", "parent"],
+    allowedRoles: ["staff"],
     component: lazy(() => import("./pass-service/PassOutServiceApp")),
     description: "Оформление пропусков",
   },
@@ -21,12 +21,12 @@ export const servicesConfig: Service[] = [
     component: lazy(() => import("./markbook-service/MarkBookServiceApp")),
     description: "Зачетная книжка учащегося профильно класса",
   },
-    {
+  {
     id: "contacts",
     name: "Контакты",
     icon: "📞",
     path: "/contacts",
-    allowedRoles: ["staff", "student", "parent"],
+    allowedRoles: [],
     component: lazy(() => import("./contacts-service/ContactsServiceApp")),
     description: "Поиск контактов сотрудника",
   },

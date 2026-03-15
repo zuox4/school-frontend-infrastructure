@@ -55,7 +55,7 @@ export function ServicesList({ role }: ServicesListProps) {
             </CellSimple>
           ))}
       </CellList>
-      <OwnServices />
+      {/* <OwnServices /> */}
     </Flex>
   );
 }
