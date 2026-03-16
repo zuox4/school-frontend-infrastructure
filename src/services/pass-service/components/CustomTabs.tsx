@@ -24,13 +24,19 @@ export default function CustomTabs({
         active={activeTab === "create"}
         onClick={() => onTabChange("create")}
         icon={<FilePlus size={18} />}
-        label="Создать пропуск"
+        label="Создать"
+      />
+      <TabButton
+        active={activeTab === "permanent"}
+        onClick={() => onTabChange("permanent")}
+        icon={<FilePlus size={18} />}
+        label="Самовыход"
       />
       <TabButton
         active={activeTab === "orders"}
         onClick={() => onTabChange("orders")}
         icon={<ListTodo size={18} />}
-        label="Мои заявки"
+        label="Заявки"
         alert={alert}
       />
     </Flex>
@@ -56,17 +62,37 @@ const TabButton = ({
     align="center"
     gap={8}
     style={{
-      padding: "8px 16px",
+      padding: "5px 15px",
       cursor: "pointer",
-      borderBottom: active ? "2px solid #0066CC" : "2px solid transparent",
-      color: active ? "#0066CC" : "#939597",
+      height: "35px",
+      color: active ? "#ffffff" : "#999999",
       fontWeight: active ? 500 : 400,
       transition: "all 0.2s ease",
       position: "relative",
+      background: active
+        ? "rgba(6, 172, 0, 0.16)"
+        : "rgba(255, 255, 255, 0.05)",
+      backdropFilter: "blur(10px)",
+      WebkitBackdropFilter: "blur(10px)",
+      borderRadius: "12px",
+      border: "1px solid rgba(255, 255, 255, 0.1)",
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    }}
+    onMouseEnter={(e) => {
+      if (!active) {
+        e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)";
+      }
+    }}
+    onMouseLeave={(e) => {
+      if (!active) {
+        e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+      }
     }}
   >
     {icon}
-    <Typography.Title style={{ fontSize: "14px" }}>{label}</Typography.Title>
+    <Typography.Title style={{ fontSize: "14px", margin: 0 }}>
+      {label}
+    </Typography.Title>
     {alert && <AlertCircle color="red" size={15} />}
   </Flex>
 );

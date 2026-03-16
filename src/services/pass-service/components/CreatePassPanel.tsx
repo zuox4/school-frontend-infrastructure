@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   CellList,
   CellSimple,
@@ -24,11 +23,9 @@ import { Search } from "lucide-react";
 export function SkeletonCellList() {
   return (
     <CellList filled mode="island" style={{ padding: 0 }}>
-      <CellSimple>
-        <Flex justify="center" style={{ padding: "20px" }}>
-          <Spinner />
-        </Flex>
-      </CellSimple>
+      <Flex justify="center" style={{ padding: "20px" }}>
+        <Spinner />
+      </Flex>
     </CellList>
   );
 }
@@ -78,7 +75,12 @@ export default function CreatePassPanel({ role }: { role: UserRole }) {
   };
   const button = (
     <Button
-      style={{ marginTop: "10px" }}
+      style={{
+        marginTop: "10px",
+        height: "45px",
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+      }}
       stretched
       disabled={dataPasses.length === 0}
       onClick={() => setIsOpenForm(true)}
@@ -165,12 +167,20 @@ export default function CreatePassPanel({ role }: { role: UserRole }) {
           </Typography.Label>
         )}
         <Flex direction="column" align="center" gap={10}>
-          <Container>{role === "staff" && button}</Container>
+          {/* <Container>
+            {role === "staff" && !!dataPasses.length && button}
+          </Container> */}
 
-          <CellList filled mode="island" style={{ padding: 0, width: "100%" }}>
+          <CellList
+            style={{
+              padding: 0,
+              width: "100%",
+              background: "rgba(4, 17, 61, 0)",
+            }}
+          >
             {/* Поле поиска */}
             {role === "staff" && (
-              <Container style={{ padding: "12px 16px" }}>
+              <Container style={{ padding: "12px 16px", height: "65px" }}>
                 <Input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -186,27 +196,38 @@ export default function CreatePassPanel({ role }: { role: UserRole }) {
             <Flex
               direction="column"
               align="center"
-              style={{ maxHeight: "280px", overflowY: "scroll" }}
+              style={{
+                maxHeight: "280px",
+                overflowY: "scroll",
+                padding: "5px",
+              }}
+              gap={10}
             >
               {filteredChildren.length > 0 ? (
                 filteredChildren.map((child) => (
                   <CellSimple
                     key={child.external_id}
-                    before={
-                      <Avatar.Container>
-                        <Avatar.Text>
-                          {child.fullname.split(" ")[1]?.[0] ||
-                            child.fullname.split(" ")[0]?.[0] ||
-                            "?"}
-                        </Avatar.Text>
-                      </Avatar.Container>
-                    }
+                    // before={
+                    //   <Avatar.Container>
+                    //     <Avatar.Text>
+                    //       {child.fullname.split(" ")[1]?.[0] ||
+                    //         child.fullname.split(" ")[0]?.[0] ||
+                    //         "?"}
+                    //     </Avatar.Text>
+                    //   </Avatar.Container>
+                    // }
                     title={
-                      child.fullname.split(" ")[0] +
-                      " " +
-                      child.fullname.split(" ")[1]
+                      <span style={{ color: "#ffffff", fontWeight: 500 }}>
+                        {child.fullname.split(" ")[0] +
+                          " " +
+                          child.fullname.split(" ")[1]}
+                      </span>
                     }
-                    subtitle={child.class_unit_name}
+                    subtitle={
+                      <span style={{ color: "rgba(255, 255, 255, 0.7)" }}>
+                        {child.class_unit_name}
+                      </span>
+                    }
                     after={
                       dataPasses.some(
                         (c) => c.external_id === child.external_id,
@@ -216,6 +237,11 @@ export default function CreatePassPanel({ role }: { role: UserRole }) {
                             minWidth: "32px",
                             height: "32px",
                             color: "white",
+                            background: "rgba(255, 255, 255, 0.2)",
+                            border: "1px solid rgba(255, 255, 255, 0.3)",
+                            backdropFilter: "blur(5px)",
+                            WebkitBackdropFilter: "blur(5px)",
+                            borderRadius: "8px",
                           }}
                         >
                           ✓
@@ -249,8 +275,8 @@ export default function CreatePassPanel({ role }: { role: UserRole }) {
                 </Flex>
               )}
             </Flex>
+            {button}
           </CellList>
-          {role === "parent" && button}
         </Flex>
       </Container>
     </>

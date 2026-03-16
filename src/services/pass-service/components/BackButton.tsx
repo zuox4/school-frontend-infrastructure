@@ -7,7 +7,7 @@ const BackButton = ({ text = "", color = "#e0e0e0", size = 16, ...props }) => {
   const navigate = useNavigate();
 
   return (
-    <button
+    <div
       onClick={() => navigate(-1)}
       style={{
         display: "flex",
@@ -16,15 +16,17 @@ const BackButton = ({ text = "", color = "#e0e0e0", size = 16, ...props }) => {
         padding: "8px",
         border: "none",
         background: "none",
-        cursor: "pointer",
         color: color,
         fontSize: size,
+        WebkitTapHighlightColor: "transparent",
+        outline: "none",
+        userSelect: "none",
       }}
       {...props}
     >
       <ArrowLeft size={size + 4} />
       {text}
-    </button>
+    </div>
   );
 };
 

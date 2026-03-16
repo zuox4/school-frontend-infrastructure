@@ -15,15 +15,28 @@ body {
   height: 100%;
 }
 .MaxUI_colorScheme_dark__jFq {
-        --background-surface-primary: #043951; /* старое значение */
-        --background-surface-card: #ffffff1a;
-
+  --background-surface-primary: #003c6b; /* старое значение */
+  --background-surface-card: #ffffff1a;
 }
+
+.CellSimple__n0z {
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+/* .CellList__body__ouS {
+  padding: 10px;
+} */
 body {
-  
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background-color: #043951;
+  background-color: #003c6b;
   -moz-osx-font-smoothing: grayscale;
 
   font-family:

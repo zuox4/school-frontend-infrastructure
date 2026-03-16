@@ -3,7 +3,6 @@ import {
   CellList,
   CellSimple,
   Container,
-  Flex,
   Typography,
 } from "@maxhub/max-ui";
 import { useNavigate } from "react-router-dom";
@@ -33,30 +32,25 @@ export function ServicesList({ role }: ServicesListProps) {
   }
 
   return (
-    <Flex direction="column" gap={20} style={{ width: "100%" }}>
-      <CellList
-        key={role}
-        filled
-        header={<CellHeader>Для {roleDict[role]}</CellHeader>}
-        mode="island"
-        style={{ padding: 0 }}
-      >
-        {availableServices
-          .filter((service) => service.allowedRoles.includes(role))
-          .map((service) => (
-            <CellSimple
-              before=<>{service.icon}</>
-              showChevron
-              key={service.id}
-              onClick={() => navigate(service.path, { state: { role: role } })}
-              style={{ color: "white", fontWeight: "400" }}
-            >
-              {service.name}
-            </CellSimple>
-          ))}
-      </CellList>
-      {/* <OwnServices /> */}
-    </Flex>
+    <CellList
+      key={role}
+      header={<CellHeader>Для {roleDict[role]}</CellHeader>}
+      style={{ padding: "0" }}
+    >
+      {availableServices
+        .filter((service) => service.allowedRoles.includes(role))
+        .map((service) => (
+          <CellSimple
+            before=<>{service.icon}</>
+            showChevron
+            key={service.id}
+            onClick={() => navigate(service.path, { state: { role: role } })}
+            style={{ color: "white", fontWeight: "400" }}
+            title={service.name}
+            subtitle={service.description}
+          />
+        ))}
+    </CellList>
   );
 }
 
